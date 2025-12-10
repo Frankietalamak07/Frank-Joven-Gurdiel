@@ -6,6 +6,14 @@ import { SlotGameModal } from './SlotGameModal';
 
 const games = [
   {
+    id: 'superace',
+    title: 'Super Ace',
+    provider: 'JILI',
+    img: 'https://placehold.co/400x400/1A1D24/BF953F.png?text=Super+Ace',
+    rtp: '98.0%',
+    hot: true
+  },
+  {
     id: 'crazy777',
     title: 'Crazy 777',
     provider: 'JILI',

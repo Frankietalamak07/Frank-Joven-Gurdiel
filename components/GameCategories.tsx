@@ -42,6 +42,14 @@ const LEFT_CATEGORIES = [
     image: 'https://kingtg777.com/wp-content/uploads/2025/07/luckybaccarat-banner.png',
     link: '#cards',
     color: 'text-green-400'
+  },
+  {
+    id: 'bingo',
+    title: 'BINGO',
+    desc: 'Lucky Numbers',
+    image: 'https://kingtg777.com/wp-content/uploads/2025/07/Jackpot-bingo-banner.png',
+    link: '#bingo',
+    color: 'text-pink-400'
   }
 ];
 
@@ -81,13 +89,13 @@ export const GameCategories: React.FC = () => {
 
         <div className="flex flex-col lg:flex-row gap-6">
             
-            {/* LEFT SIDE: 5 Cards Grid */}
+            {/* LEFT SIDE: 6 Cards Grid (3x2) */}
             <div className="flex-1 grid grid-cols-1 md:grid-cols-2 gap-4">
                 {LEFT_CATEGORIES.map((cat, index) => (
                     <div 
                         key={cat.id} 
                         onClick={() => window.location.href = cat.link}
-                        className={`relative group rounded-2xl overflow-hidden border border-white/10 shadow-lg cursor-pointer bg-brand-card hover:border-brand-gold/50 transition-all duration-300 hover-wiggle-bounce h-64 ${index === 4 ? 'md:col-span-2' : ''}`}
+                        className={`relative group rounded-2xl overflow-hidden border border-white/10 shadow-lg cursor-pointer bg-brand-card hover:border-brand-gold/50 transition-all duration-300 hover-wiggle-bounce h-64`}
                     >
                         {/* Background Image */}
                         <div className="absolute inset-0 bg-black">

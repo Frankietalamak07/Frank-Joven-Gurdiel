@@ -1,3 +1,4 @@
+
 import React from 'react';
 
 interface ButtonProps {
@@ -8,6 +9,36 @@ interface ButtonProps {
   href?: string;
   className?: string;
 }
+
+const playClickSound = () => {
+    if (typeof window === 'undefined') return;
+    
+    try {
+        const AudioContext = window.AudioContext || (window as any).webkitAudioContext;
+        if (!AudioContext) return;
+        
+        // Use a static context if possible or create new one (lightweight for simple beeps)
+        const ctx = new AudioContext();
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        
+        // Futuristic blip
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(800, ctx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(1200, ctx.currentTime + 0.05);
+        
+        gain.gain.setValueAtTime(0.05, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.1);
+        
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        
+        osc.start();
+        osc.stop(ctx.currentTime + 0.1);
+    } catch (e) {
+        // Ignore audio errors
+    }
+};
 
 export const Button: React.FC<ButtonProps> = ({ 
   children, 
@@ -29,16 +60,21 @@ export const Button: React.FC<ButtonProps> = ({
 
   const combinedClasses = `${baseStyles} ${variants[variant]} ${widthClass} ${className}`;
 
+  const handleClick = (e: React.MouseEvent) => {
+      playClickSound();
+      if (onClick) onClick();
+  };
+
   if (href) {
     return (
-      <a href={href} className={combinedClasses}>
+      <a href={href} className={combinedClasses} onClick={playClickSound}>
         {children}
       </a>
     );
   }
 
   return (
-    <button onClick={onClick} className={combinedClasses}>
+    <button onClick={handleClick} className={combinedClasses}>
       {children}
     </button>
   );
